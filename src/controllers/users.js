@@ -1,9 +1,18 @@
 const prisma = require('../utils/prisma');
 
 const getUsers = async(req, res) => {
-    //TODO: Return a list of all users and the channels
-    //they belong to
-    res.json({users: []})
+
+    const users = await prisma.user.findMany({ 
+        include: {
+        channels: true
+        }
+    })
+        
+        res.json({users: users })
+
 }
+
+
+
 
 module.exports = { getUsers };
